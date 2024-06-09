@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Suggester Results</title>
+</head>
+<body>
+    <h1>College Suggestions</h1>
+    {% if suggestions %}
+        <ul>
+            {% for college in suggestions %}
+                <li>{{ college.name }} - {{ college.location }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No suggestions found based on the entered criteria.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!-- templates/suggestions/home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Suggestion Tool</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: fade-in 0.5s ease-out;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+        .left-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            animation: slide-up 0.5s ease-out;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            animation: slide-up 0.5s ease-out;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease-out;
+        }
+        input[type="number"]:focus {
+            border-color: #4CAF50;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease-out;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        ul li {
+            margin-bottom: 8px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            transition: transform 0.3s ease-out;
+        }
+        ul li:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Keyframe animations */
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1>College Suggestion Tool</h1>
+            <img src="https://via.placeholder.com/300" alt="Student Image" style="border-radius: 50%; margin-bottom: 20px;">
+        </div>
+        
+        <div class="right-section">
+            <form method="post">
+                {% csrf_token %}
+                <div style="width: 100%;">
+                    <label for="min_gpa">Minimum GPA (10-scale):</label>
+                    <input type="number" id="min_gpa" name="min_gpa" step="0.01" required>
+                </div>
+                
+                <div style="width: 100%;">
+                    <label for="min_gre_score">Minimum GRE Score:</label>
+                    <input type="number" id="min_gre_score" name="min_gre_score" required>
+                </div>
+                
+                <div style="width: 100%;">
+                    <label for="min_toefl_score">Minimum TOEFL Score:</label>
+                    <input type="number" id="min_toefl_score" name="min_toefl_score" required>
+                </div>
+                
+                <div style="width: 100%;">
+                    <label for="min_duolingo_score">Minimum Duolingo Score:</label>
+                    <input type="number" id="min_duolingo_score" name="min_duolingo_score" required>
+                </div>
+                
+                <div style="width: 100%;">
+                    <label for="min_ielts_score">Minimum IELTS Score:</label>
+                    <input type="number" id="min_ielts_score" name="min_ielts_score" step="0.01" required>
+                </div>
+                
+                <button type="submit">Submit</button>
+            </form>
+            
+            {% if suggested_colleges %}
+                <h2>Suggested Colleges:</h2>
+                <ul>
+                    {% for college in suggested_colleges %}
+                        <li>{{ college.name }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
