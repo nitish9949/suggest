@@ -1,1 +1,1 @@
-web: gunicorn college_suggestor.wsgi --log-file -
+web: gunicorn suggest.wsgi --log-file -
