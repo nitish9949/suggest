@@ -110,7 +110,6 @@ pyrsistent
 python-dateutil
 python-json-logger
 pytz
-pywin32
 pywinpty
 PyYAML
 pyzmq
