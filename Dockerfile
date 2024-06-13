@@ -12,11 +12,17 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Rust and Cargo
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+    source $HOME/.cargo/env
+
+# Ensure Rust and Cargo are in PATH
 ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Copy the requirements file into the container
 COPY requirements.txt ./
+
+# Check Rust installation and version
+RUN rustc --version && cargo --version
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
