@@ -12,8 +12,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Rust and Cargo
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
-    source $HOME/.cargo/env
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh && \
+    sh rustup.sh -y && \
+    rm rustup.sh
 
 # Ensure Rust and Cargo are in PATH
 ENV PATH="/root/.cargo/bin:${PATH}"
