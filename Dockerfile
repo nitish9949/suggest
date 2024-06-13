@@ -4,9 +4,16 @@ FROM python:3.11-slim
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Install Rust
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Rust and Cargo
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH=/root/.cargo/bin:$PATH
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Copy the requirements file into the container
 COPY requirements.txt ./
